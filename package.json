@@ -1,0 +1,47 @@
+{
+  "name": "image-router-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for routing image generation and editing across xAI, Google Gemini/Nano Banana, and OpenAI.",
+  "type": "module",
+  "bin": {
+    "image-router-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "ci": "npm run typecheck && npm test && npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "image-generation",
+    "openai",
+    "gemini",
+    "nano-banana",
+    "grok",
+    "xai"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "2.6.0",
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "openai": "6.39.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.1",
+    "tsx": "4.22.3",
+    "typescript": "6.0.3",
+    "vitest": "4.1.7"
+  }
+}

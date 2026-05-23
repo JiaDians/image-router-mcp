@@ -1,5 +1,8 @@
 # image-router-mcp
 
+[![npm version](https://img.shields.io/npm/v/image-router-mcp.svg)](https://www.npmjs.com/package/image-router-mcp)
+[![npm downloads](https://img.shields.io/npm/dm/image-router-mcp.svg)](https://www.npmjs.com/package/image-router-mcp)
+
 English | [繁體中文](#繁體中文)
 
 Open-source MCP server for routing image generation and editing across xAI/Grok, Google Gemini/Nano Banana, and OpenAI.

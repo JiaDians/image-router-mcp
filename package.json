@@ -43,5 +43,13 @@
     "tsx": "4.22.3",
     "typescript": "6.0.3",
     "vitest": "4.1.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiaDians/image-router-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JiaDians/image-router-mcp/issues"
+  },
+  "homepage": "https://github.com/JiaDians/image-router-mcp#readme"
 }

@@ -72,7 +72,7 @@ For MCP clients, run the published package with `npx`:
 | `OPENAI_API_KEY` | For OpenAI tool | OpenAI API key. |
 | `DEFAULT_XAI_IMAGE_MODEL` | No | Overrides the default xAI image model. |
 | `DEFAULT_GOOGLE_IMAGE_MODEL` | No | Overrides the default Google image model. |
-| `DEFAULT_OPENAI_IMAGE_MODEL` | No | Overrides the default OpenAI image model. |
+| `DEFAULT_OPENAI_IMAGE_MODEL` | No | Sets the default OpenAI image model when `model` is omitted. |
 | `DEFAULT_OUTPUT_DIR` | No | Directory for saved images. Defaults to `./generated-images`. |
 
 ## How to use this MCP
@@ -196,7 +196,7 @@ npm run build
 | `OPENAI_API_KEY` | 使用 OpenAI 工具時需要 | OpenAI API Key。 |
 | `DEFAULT_XAI_IMAGE_MODEL` | 否 | 覆寫預設 xAI 圖片模型。 |
 | `DEFAULT_GOOGLE_IMAGE_MODEL` | 否 | 覆寫預設 Google 圖片模型。 |
-| `DEFAULT_OPENAI_IMAGE_MODEL` | 否 | 覆寫預設 OpenAI 圖片模型。 |
+| `DEFAULT_OPENAI_IMAGE_MODEL` | 否 | 未傳入 `model` 時使用的預設 OpenAI 圖片模型。 |
 | `DEFAULT_OUTPUT_DIR` | 否 | 圖片輸出資料夾，預設為 `./generated-images`。 |
 
 ## 這個 MCP 怎麼用

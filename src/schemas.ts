@@ -8,6 +8,7 @@ export const returnModeSchema = z
   .describe("How generated images are returned. Use file for large images; inline embeds base64 image content in the MCP response.");
 
 const nonEmptyString = z.string().trim().min(1);
+const defaultOpenAIImageModel = process.env.DEFAULT_OPENAI_IMAGE_MODEL ?? "gpt-image-2";
 
 const commonImageShape = {
   prompt: nonEmptyString.describe("Image generation or editing instructions."),
@@ -27,7 +28,7 @@ const commonImageShape = {
 
 export const openAIInputShape = {
   ...commonImageShape,
-  model: nonEmptyString.default("gpt-image-2").describe("OpenAI image model ID. Defaults to gpt-image-2."),
+  model: nonEmptyString.default(defaultOpenAIImageModel).describe("OpenAI image model ID. Defaults to DEFAULT_OPENAI_IMAGE_MODEL or gpt-image-2."),
   size: nonEmptyString.optional().describe("OpenAI size, such as auto, 1024x1024, 1536x1024, or any supported WIDTHxHEIGHT."),
   quality: z.enum(["auto", "low", "medium", "high", "standard", "hd"]).optional().describe("OpenAI quality."),
   background: z.enum(["transparent", "opaque", "auto"]).optional().describe("OpenAI background option."),

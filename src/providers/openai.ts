@@ -27,6 +27,10 @@ export function setOpenAIClientForTests(client: OpenAIImageClient | undefined): 
   openAIClient = client;
 }
 
+function isDallEModel(model: string): boolean {
+  return model.startsWith("dall-e-");
+}
+
 async function imageFromOpenAIItem(item: { b64_json?: string | null; url?: string | null; revised_prompt?: string | null }, mimeType: string): Promise<GeneratedImage> {
   if (item.b64_json) {
     return {
@@ -43,18 +47,22 @@ async function imageFromOpenAIItem(item: { b64_json?: string | null; url?: strin
 }
 
 export async function generateOpenAIImage(params: OpenAIParams, client: OpenAIImageClient = getOpenAIClient()): Promise<ProviderResult> {
-  const model = process.env.DEFAULT_OPENAI_IMAGE_MODEL ?? params.model;
-  const outputFormat = params.output_format;
+  const model = params.model ?? process.env.DEFAULT_OPENAI_IMAGE_MODEL ?? "gpt-image-2";
+  const outputFormat = params.output_format ?? "png";
   const inputImages = params.input_images ?? [];
+  const dallEModel = isDallEModel(model);
   const common = {
     model,
     prompt: params.prompt,
     n: params.n,
     size: params.size,
-    background: params.background,
-    output_format: outputFormat,
-    response_format: "b64_json" as const,
     user: params.user,
+    ...(dallEModel
+      ? { response_format: "b64_json" as const }
+      : {
+          background: params.background,
+          output_format: outputFormat,
+        }),
   };
 
   const response = inputImages.length > 0
@@ -74,8 +82,7 @@ export async function generateOpenAIImage(params: OpenAIParams, client: OpenAIIm
     : await client.images.generate({
         ...common,
         quality: params.quality,
-        moderation: params.moderation,
-        style: params.style,
+        ...(dallEModel ? { style: params.style } : { moderation: params.moderation }),
       });
 
   const data = "data" in response ? response.data ?? [] : [];

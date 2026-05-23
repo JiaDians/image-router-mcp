@@ -8,7 +8,7 @@ import type { GoogleParams, OpenAIParams, XAIParams } from "../src/schemas.js";
 const tinyPng = Buffer.from("image").toString("base64");
 
 describe("providers", () => {
-  it("builds OpenAI generation requests with flexible models", async () => {
+  it("does not send response_format to GPT image models", async () => {
     const calls: unknown[] = [];
     const client = {
       images: {
@@ -24,15 +24,54 @@ describe("providers", () => {
 
     const params: OpenAIParams = {
       prompt: "cat",
-      model: "future-openai-model",
+      model: "gpt-image-2",
       output_format: "png",
       return_mode: "file",
       inline_max_bytes: 1024,
     };
     const result = await generateOpenAIImage(params, client);
 
-    expect(result.model).toBe("future-openai-model");
-    expect(calls[0]).toMatchObject({ model: "future-openai-model", prompt: "cat", response_format: "b64_json" });
+    expect(result.model).toBe("gpt-image-2");
+    expect(calls[0]).toMatchObject({ model: "gpt-image-2", prompt: "cat", output_format: "png" });
+    expect(calls[0]).not.toHaveProperty("response_format");
+  });
+
+  it("only sends response_format to DALL-E generation requests", async () => {
+    const calls: unknown[] = [];
+    const client = {
+      images: {
+        generate: async (body: unknown) => {
+          calls.push(body);
+          return { created: 1, data: [{ b64_json: tinyPng }] };
+        },
+        edit: async () => {
+          throw new Error("unexpected edit");
+        },
+      },
+    };
+
+    const previousDefaultModel = process.env.DEFAULT_OPENAI_IMAGE_MODEL;
+    process.env.DEFAULT_OPENAI_IMAGE_MODEL = "gpt-image-2";
+    try {
+      const params: OpenAIParams = {
+        prompt: "cat",
+        model: "dall-e-3",
+        output_format: "png",
+        return_mode: "file",
+        inline_max_bytes: 1024,
+      };
+      const result = await generateOpenAIImage(params, client);
+
+      expect(result.model).toBe("dall-e-3");
+      expect(calls[0]).toMatchObject({ model: "dall-e-3", prompt: "cat", response_format: "b64_json" });
+      expect(calls[0]).not.toHaveProperty("output_format");
+    } finally {
+      if (previousDefaultModel === undefined) {
+        delete process.env.DEFAULT_OPENAI_IMAGE_MODEL;
+      } else {
+        process.env.DEFAULT_OPENAI_IMAGE_MODEL = previousDefaultModel;
+      }
+    }
   });
 
   it("extracts Google inline image parts", async () => {

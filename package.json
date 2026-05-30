@@ -1,6 +1,6 @@
 {
   "name": "image-router-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "MCP server for routing image generation and editing across xAI, Google Gemini/Nano Banana, and OpenAI.",
   "type": "module",
   "bin": {

@@ -41,11 +41,12 @@ export const googleInputShape = {
   ...commonImageShape,
   model: nonEmptyString.default("gemini-3.1-flash-image-preview").describe("Google image model ID. Defaults to Nano Banana 2."),
   aspect_ratio: nonEmptyString.optional().describe("Aspect ratio, for example 1:1, 16:9, 9:16, 4:3, or 3:2."),
-  image_size: z.enum(["1K", "2K", "4K"]).optional().describe("Google image size where supported."),
+  image_size: z.enum(["512", "1K", "2K", "4K"]).optional().describe("Google image size where supported."),
 } as const;
 
 export const xaiInputShape = {
   ...commonImageShape,
+  input_images: z.array(nonEmptyString).max(3).optional().describe("Local image paths used as edit/reference inputs. xAI supports up to 3 input images."),
   model: nonEmptyString.default("grok-imagine-image-quality").describe("xAI/Grok image model ID."),
   aspect_ratio: nonEmptyString.optional().describe("Aspect ratio, for example 1:1, 16:9, 9:16, 3:2, or auto."),
   resolution: z.enum(["1k", "2k"]).optional().describe("xAI image resolution."),

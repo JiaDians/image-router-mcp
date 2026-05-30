@@ -75,17 +75,22 @@ describe("providers", () => {
   });
 
   it("extracts Google inline image parts", async () => {
+    const calls: unknown[] = [];
     const client = {
       models: {
-        generateContent: async () => ({
-          candidates: [{ content: { parts: [{ inlineData: { data: tinyPng, mimeType: "image/png" } }] } }],
-          modelVersion: "test-version",
-        }),
+        generateContent: async (body: unknown) => {
+          calls.push(body);
+          return {
+            candidates: [{ content: { parts: [{ inlineData: { data: tinyPng, mimeType: "image/png" } }] } }],
+            modelVersion: "test-version",
+          };
+        },
       },
     };
     const params: GoogleParams = {
       prompt: "cat",
       model: "gemini-test",
+      image_size: "512",
       return_mode: "file",
       inline_max_bytes: 1024,
     };
@@ -94,6 +99,7 @@ describe("providers", () => {
 
     expect(result.provider).toBe("google");
     expect(result.images[0]?.mimeType).toBe("image/png");
+    expect(calls[0]).toMatchObject({ config: { imageConfig: { imageSize: "512" } } });
   });
 
   it("calls xAI JSON image generation endpoint", async () => {

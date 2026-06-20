@@ -17,8 +17,11 @@ describe("tool schemas", () => {
     expect(() => googleParamsSchema.parse({ prompt: "" })).toThrow();
   });
 
-  it("allows Google 512 image size for Gemini 3.1 Flash Image", () => {
-    expect(googleParamsSchema.parse({ prompt: "cat", image_size: "512" }).image_size).toBe("512");
+  it("uses the stable Gemini 3.1 Flash Image model and supports its 0.5K size", () => {
+    const params = googleParamsSchema.parse({ prompt: "cat", image_size: "0.5K" });
+
+    expect(params.model).toBe("gemini-3.1-flash-image");
+    expect(params.image_size).toBe("0.5K");
   });
 
   it("rejects more than three xAI input images", () => {

@@ -22,7 +22,7 @@ It keeps model IDs flexible instead of locking tools to a small allowlist, so ne
 | Tool | Provider | Supports |
 | --- | --- | --- |
 | `xai_generate_image` | xAI/Grok | Text-to-image and JSON image edits with up to 3 local `input_images` |
-| `google_generate_image` | Google Gemini/Nano Banana | Text-to-image and local reference/edit images, including `512`, `1K`, `2K`, and `4K` image sizes where supported |
+| `google_generate_image` | Google Gemini/Nano Banana | Text-to-image and local reference/edit images, including `0.5K`, `1K`, `2K`, and `4K` image sizes where supported |
 | `openai_generate_image` | OpenAI | Text-to-image and local reference/edit images |
 
 ## Model examples
@@ -32,7 +32,7 @@ These are examples, not allowlists.
 | Provider | Example models |
 | --- | --- |
 | xAI | `grok-imagine-image-quality`, `grok-imagine-image` |
-| Google | `gemini-3.1-flash-image-preview`, `gemini-3-pro-image-preview`, `gemini-2.5-flash-image` |
+| Google | `gemini-3.1-flash-image`, `gemini-3-pro-image`, `gemini-2.5-flash-image` |
 | OpenAI | `gpt-image-2`, `gpt-image-1.5`, `gpt-image-1`, `chatgpt-image-latest`, `dall-e-3` |
 
 ## Quick start
@@ -99,10 +99,10 @@ To edit or reference existing local images, pass file paths with `input_images`:
   "tool": "google_generate_image",
   "arguments": {
     "prompt": "Turn this sketch into a polished mobile app hero illustration",
-    "model": "gemini-3.1-flash-image-preview",
+    "model": "gemini-3.1-flash-image",
     "input_images": ["./assets/sketch.png"],
     "aspect_ratio": "16:9",
-    "image_size": "512",
+    "image_size": "0.5K",
     "return_mode": "both"
   }
 }
@@ -147,7 +147,7 @@ npm run ci
 | 工具 | 供應商 | 支援內容 |
 | --- | --- | --- |
 | `xai_generate_image` | xAI/Grok | 文字生成圖片，以及最多 3 張本機 `input_images` 的 JSON 圖片編輯 |
-| `google_generate_image` | Google Gemini/Nano Banana | 文字生成圖片，以及本機參考圖/編輯圖；支援供應商允許的 `512`、`1K`、`2K`、`4K` 圖片尺寸 |
+| `google_generate_image` | Google Gemini/Nano Banana | 文字生成圖片，以及本機參考圖/編輯圖；支援供應商允許的 `0.5K`、`1K`、`2K`、`4K` 圖片尺寸 |
 | `openai_generate_image` | OpenAI | 文字生成圖片，以及本機參考圖/編輯圖 |
 
 ## 模型範例
@@ -157,7 +157,7 @@ npm run ci
 | 供應商 | 模型範例 |
 | --- | --- |
 | xAI | `grok-imagine-image-quality`, `grok-imagine-image` |
-| Google | `gemini-3.1-flash-image-preview`, `gemini-3-pro-image-preview`, `gemini-2.5-flash-image` |
+| Google | `gemini-3.1-flash-image`, `gemini-3-pro-image`, `gemini-2.5-flash-image` |
 | OpenAI | `gpt-image-2`, `gpt-image-1.5`, `gpt-image-1`, `chatgpt-image-latest`, `dall-e-3` |
 
 ## 快速開始
@@ -224,10 +224,10 @@ npm run build
   "tool": "google_generate_image",
   "arguments": {
     "prompt": "Turn this sketch into a polished mobile app hero illustration",
-    "model": "gemini-3.1-flash-image-preview",
+    "model": "gemini-3.1-flash-image",
     "input_images": ["./assets/sketch.png"],
     "aspect_ratio": "16:9",
-    "image_size": "512",
+    "image_size": "0.5K",
     "return_mode": "both"
   }
 }

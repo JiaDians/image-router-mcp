@@ -90,7 +90,7 @@ describe("providers", () => {
     const params: GoogleParams = {
       prompt: "cat",
       model: "gemini-test",
-      image_size: "512",
+      image_size: "0.5K",
       return_mode: "file",
       inline_max_bytes: 1024,
     };
@@ -99,7 +99,7 @@ describe("providers", () => {
 
     expect(result.provider).toBe("google");
     expect(result.images[0]?.mimeType).toBe("image/png");
-    expect(calls[0]).toMatchObject({ config: { imageConfig: { imageSize: "512" } } });
+    expect(calls[0]).toMatchObject({ config: { imageConfig: { imageSize: "0.5K" } } });
   });
 
   it("calls xAI JSON image generation endpoint", async () => {

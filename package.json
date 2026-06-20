@@ -33,9 +33,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@google/genai": "2.7.0",
+    "@google/genai": "2.9.0",
     "@modelcontextprotocol/sdk": "1.29.0",
-    "openai": "6.39.1",
+    "openai": "6.44.0",
     "zod": "4.4.3"
   },
   "devDependencies": {

@@ -22,6 +22,5 @@ jobs:
       - run: npm ci
       - run: npm run ci
       - run: npm pack --dry-run
+      # Configure this repository and workflow as an npm Trusted Publisher before release.
       - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
